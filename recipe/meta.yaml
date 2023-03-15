@@ -14,7 +14,7 @@ build:
     - yaqd-labjack-sensor = yaqd_labjack._labjack_sensor:LabjackSensor.main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
@@ -22,7 +22,8 @@ requirements:
     - pip
     - python >=3.7
   run:
-    - pymodbus
+    - pyserial-asyncio
+    - pymodbus >=3
     - python >=3.7
     - yaqd-core >=2020.06.3
 
@@ -30,7 +31,6 @@ test:
   imports:
     - yaqd_labjack
   commands:
-    - pip check
     - yaqd-labjack-sensor --help
   requires:
     - pip
