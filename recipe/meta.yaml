@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
   sha256: 89577fb25305296fb561a92a9658d9ff951f8e125d4d5e45edce45b80185cc7d
 
 build:
@@ -14,17 +14,17 @@ build:
     - yaqd-labjack-sensor = yaqd_labjack._labjack_sensor:LabjackSensor.main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - flit-core
     - pip
-    - python >=3.7
+    - python {{ python_min }}
   run:
     - pyserial-asyncio
     - pymodbus >=3
-    - python >=3.7
+    - python >={{ python_min }}
     - yaqd-core >=2020.06.3
 
 test:
@@ -34,6 +34,7 @@ test:
     - yaqd-labjack-sensor --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://yaq.fyi
